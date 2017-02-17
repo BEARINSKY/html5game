@@ -17,7 +17,7 @@ aneObj.prototype.init=function () {
 aneObj.prototype.draw=function () {
     ctx2.save();
     ctx2.globalAlpha=0.6;//透明度
-    ctx2.lineWidth=10;//宽度
+    ctx2.lineWidth=12;//宽度
     ctx2.lineCap="round";//线段端点样式 圆形
     ctx2.strokeStyle="#3b154e";//颜色
     for(var i=0;i<this.num;i++){

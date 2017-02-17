@@ -5,21 +5,21 @@ var can1;
 var can2;
 var ctx1;
 var ctx2;
-
 var canWidth;
 var canHeight;
 
-var lastTime;
-var deltaTime;
+var lastTime=Date.now();
+var deltaTime=0;
 
 var ane;//海葵
 var fruit;//果实
 var bgPic=new Image();
+
+var bigfish;
 document.body.onload=game;
 function game() {
     init();
     gameloop();
-    drawBackground();
 }
 function init() {
      can1=document.getElementById("canvas1");
@@ -38,6 +38,8 @@ function init() {
     fruit=new fruitObj();
     fruit.init();
 
+    bigfish=new bigFishObj();
+    bigfish.init();
 };
 function gameloop() {
     // 根据PC性能决定帧数
@@ -46,6 +48,11 @@ function gameloop() {
     var now = Date.now();
     deltaTime=now-lastTime;
     lastTime=now;
+    drawBackground();
+    fruitMonitor();
     ane.draw();
     //console.log(deltaTime)
+    fruit.draw();
+    ctx1.clearRect(0,0,canWidth,canHeight);
+    bigfish.draw();
 }
