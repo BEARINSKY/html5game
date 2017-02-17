@@ -48,4 +48,5 @@ function gameloop() {
     lastTime=now;
     ane.draw();
     //console.log(deltaTime)
+    fruit.draw();
 }
