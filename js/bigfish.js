@@ -40,6 +40,7 @@ bigFishObj.prototype.draw=function () {
     ctx1.restore();
 };
 //设置移动方法，三个参数 目标数值，当前数值，变化率%，返回（当前数值+差值*百分比变化率）
+//spe,在【0-1】,越靠近1，则实际速度越慢
 function lerpD(aim,cur,spe) {
     var del=(cur-aim)*spe;
     return aim+del;

@@ -16,6 +16,7 @@ var fruit;//果实
 var bgPic=new Image();
 
 var bigfish;//大鱼
+var smallfish;//小鱼
 
 var mx;//获取鼠标 坐标X
 var my;//获取鼠标 坐标Y
@@ -45,6 +46,8 @@ function init() {
 
     bigfish=new bigFishObj();
     bigfish.init();
+    smallfish=new smallFishObj();
+    smallfish.init();
 
     mx=canWidth*0.5;
     my=canHeight*0.5;
@@ -56,6 +59,10 @@ function gameloop() {
     var now = Date.now();
     deltaTime=now-lastTime;
     lastTime=now;
+    //解决切换TAB时， deltaTime过大，导致果实过大，给它一个上限
+    if(deltaTime>40){
+        deltaTime=40;
+    }
     drawBackground();
     fruitMonitor();
     ane.draw();
@@ -64,6 +71,8 @@ function gameloop() {
     ctx1.clearRect(0,0,canWidth,canHeight);
 
     bigfish.draw();
+    smallfish.draw();
+    eat();
 };
 function onMouseMove(e) {
     if(e.offsetX||e.layerX)

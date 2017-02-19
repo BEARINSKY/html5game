@@ -54,13 +54,7 @@ fruitObj.prototype.draw=function () {
         }
     }
 };
-fruitObj.prototype.born=function (i) {
-    var aneID=Math.floor(Math.random()*ane.num);
-    this.x[i]=ane.x[aneID];
-    this.y[i]=canHeight-ane.len[aneID];
-    this.l[i]=0;
-    this.alive[i]=true;
-};
+
 function fruitMonitor() {
     var num=0;
     for(var i=0;i<fruit.num;i++){
@@ -81,4 +75,16 @@ function sendFruit() {
             return;
         }
     }
-}
+};
+//产生一个果实
+fruitObj.prototype.born=function (i) {
+    var aneID=Math.floor(Math.random()*ane.num);
+    this.x[i]=ane.x[aneID];
+    this.y[i]=canHeight-ane.len[aneID];
+    this.l[i]=0;
+    this.alive[i]=true;
+};
+//消灭一个果实
+fruitObj.prototype.dead=function (i) {
+    this.alive[i]=false;
+};
