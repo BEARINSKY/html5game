@@ -31,7 +31,23 @@ function init() {
      can2=document.getElementById("canvas2");//bg,ane,fruit
      ctx2=can2.getContext("2d");
 
-     can1.addEventListener('mousemove',onMouseMove,false);
+     can1.addEventListener('mousemove',start,false);
+     //添加手机端事件
+    can1.addEventListener("touchstart",function(e){
+        mx=e.touches[0].pageX;
+        my=e.touches[0].pageY;
+        console.log("start",mx);
+    });
+    can1.addEventListener("touchmove",function(e){
+        mx=e.touches[0].pageX;
+        my=e.touches[0].pageY;
+        console.log("move",mx);
+    });
+    can1.addEventListener("touchend",function(e){
+        mx=e.changedTouches[0].pageX;
+        my=e.changedTouches[0].pageY;
+        console.log("end",mx);
+    });
 
      bgPic.src="./src/background.jpg";
 
@@ -74,12 +90,11 @@ function gameloop() {
     smallfish.draw();
     eat();
 };
-function onMouseMove(e) {
+function start(e) {
     if(e.offsetX||e.layerX)
     {
         mx= e.offsetX == undefined ? e.layerX:e.offsetX;
         my= e.offsetY == undefined ? e.layerY:e.offsetY;
         //console.log(mx);
     }
-
 }
