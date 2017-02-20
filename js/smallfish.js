@@ -11,7 +11,11 @@ var smallFishObj=function () {
     this.eyeTime;//眼镜计时器
     this.eyeCount;//眼镜选择器
 
-    this.swim=new Image();//身体
+    //this.swim=new Image();//身体
+    this.swim=[];//身体
+    this.bodyTime;//身体计时器
+    this.bodyCount;//身体选择器
+    this.bodyFlat;
 
     //this.tail=new Image();//尾巴
     this.tail=[];//实现鱼尾巴动作的数组
@@ -24,15 +28,24 @@ smallFishObj.prototype.init=function () {
     this.angle=0;
     //this.eye.src="./src/babyEye0.png";
     //EYE
-    for(var i=0;i<2;i++){
-        this.eye[i]=new Image();
-        this.eye[i].src="./src/babyEye"+i+".png";
-    }
+    //for(var i=0;i<2;i++){
+        this.eye[0]=new Image();
+        this.eye[0].src="./src/babyEye0.png";
+    this.eye[1]=new Image();
+    this.eye[1].src="./src/babyEye1.png";
+    //}
     this.eyeTime=0;
     this.eyeCount=0;
 
     //BODY
-    this.swim.src="./src/babyFade0.png";
+    //this.swim.src="./src/babyFade0.png";
+    for(var i=0;i<20;i++){
+        this.swim[i]=new Image();
+        this.swim[i].src="./src/babyFade"+i+".png";
+    }
+    this.bodyTime=0;//身体计时器
+    this.bodyCount=0;//身体选择器
+    this.bodyFlat=true;//gameover 只提示一次
 
     //this.tail.src="./src/babyTail0.png";
     //TAIL
@@ -68,24 +81,39 @@ smallFishObj.prototype.draw=function () {
         this.tailCount=(this.tailCount+1)%8;
         this.tailTime%=50;
     }
-    //小鱼眼镜动作,根据时间每过500毫秒修改一次图片，一共2张图片
+    //小鱼眼镜动作,
     this.eyeTime+=deltaTime;
-    if (this.eyeTime<100){
+    var flag=this.eyeTime%8000;//设置周期上限8秒
+    if (flag>0&&flag<100){//设置闭眼时间0.1秒
         this.eyeCount=1;
-    }else if(this.eyeTime<this.eyeT){
+    }else{
+        if (this.eyeCount==1){//当eyeCount==1,且flag不在100之内，说明是第一次循环到100+，则给eyeTime添加一个随机数，实现随机周期
+            var ran=Math.round(Math.random()*5000);
+            //console.log(ran);
+            this.eyeTime+=ran;
+        }
         this.eyeCount=0;
-    }else {
-        this.eyeTime%=this.eyeT;
-        this.eyeT=getEyeT();
     }
+    //小鱼身体
+    this.bodyTime+=deltaTime;
+    this.bodyCount=Math.round(this.bodyTime/1000);
+    if (this.bodyCount>18){
+        if (this.bodyFlat)
+        {//GAME OVER
+            console.log("game over");}
+        this.bodyFlat=false;
+        this.bodyCount=19;
+    }
+
     ctx1.save();
     ctx1.translate(this.x,this.y);//将原点定位到此
     ctx1.rotate(this.angle);//设置角度
 
     var countT=this.tailCount;
     var countE=this.eyeCount;
+    var countB=this.bodyCount;
     ctx1.drawImage(this.tail[countT],-this.tail[countT].width*0.5+24,-this.tail[countT].height*0.5);
-    ctx1.drawImage(this.swim,-this.swim.width*0.5,-this.swim.height*0.5);
+    ctx1.drawImage(this.swim[countB],-this.swim[countB].width*0.5,-this.swim[countB].height*0.5);
     ctx1.drawImage(this.eye[countE],-this.eye[countE].width*0.5,-this.eye[countE].height*0.5);
     ctx1.restore();
 };

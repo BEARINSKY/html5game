@@ -62,15 +62,18 @@ bigFishObj.prototype.draw=function () {
         this.tailCount=(this.tailCount+1)%8;
         this.tailTime%=50;
     }
-    //大鱼眼镜动作,根据时间每过500毫秒修改一次图片，一共2张图片
+    //大鱼眼镜动作,
     this.eyeTime+=deltaTime;
-    if (this.eyeTime<100){
+    var flag=this.eyeTime%8000;//设置周期上限8秒
+    if (flag>0&&flag<100){//设置闭眼时间0.1秒
         this.eyeCount=1;
-    }else if(this.eyeTime<this.eyeT){
+    }else{
+        if (this.eyeCount==1){//当eyeCount==1,且flag不在100之内，说明是第一次循环到100+，则给eyeTime添加一个随机数，实现随机周期
+            var ran=Math.round(Math.random()*5000);
+           // console.log(ran);
+            this.eyeTime+=ran;
+        }
         this.eyeCount=0;
-    }else {
-        this.eyeTime%=this.eyeT;
-        this.eyeT=getEyeT();
     }
     ctx1.save();
     ctx1.translate(this.x,this.y);//将原点定位到此
@@ -102,6 +105,6 @@ function lerpA(aim,cur,spe) {
 }
 function getEyeT() {
     var res=1500+Math.round(Math.random()*4500);
-    console.log(res);
+   // console.log(res);
     return res;
 }

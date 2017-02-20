@@ -11,7 +11,7 @@ aneObj.prototype.init=function () {
     for(var i=0;i<this.num;i++){
         this.x[i]=i*16+Math.random()*20;//横坐标间隔16，误差20
         this.len[i]=200+Math.random()*50;//长度200，误差50
-        console.log("s");
+       // console.log("s");
     }
 };
 aneObj.prototype.draw=function () {

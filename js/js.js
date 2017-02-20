@@ -36,17 +36,17 @@ function init() {
     can1.addEventListener("touchstart",function(e){
         mx=e.touches[0].pageX;
         my=e.touches[0].pageY;
-        console.log("start",mx);
+     //   console.log("start",mx);
     });
     can1.addEventListener("touchmove",function(e){
         mx=e.touches[0].pageX;
         my=e.touches[0].pageY;
-        console.log("move",mx);
+       // console.log("move",mx);
     });
     can1.addEventListener("touchend",function(e){
         mx=e.changedTouches[0].pageX;
         my=e.changedTouches[0].pageY;
-        console.log("end",mx);
+       // console.log("end",mx);
     });
 
      bgPic.src="./src/background.jpg";
