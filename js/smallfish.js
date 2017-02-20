@@ -117,6 +117,10 @@ smallFishObj.prototype.draw=function () {
     ctx1.drawImage(this.eye[countE],-this.eye[countE].width*0.5,-this.eye[countE].height*0.5);
     ctx1.restore();
 };
+//小鱼被大鱼喂食
+smallFishObj.prototype.eat=function () {
+    this.bodyTime=0;
+};
 //设置移动方法，三个参数 目标数值，当前数值，变化率%，返回（当前数值+差值*百分比变化率）
 function lerpDS(aim,cur,spe) {
     var del=(cur-aim)*spe;

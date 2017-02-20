@@ -89,6 +89,7 @@ function gameloop() {
     bigfish.draw();
     smallfish.draw();
     eat();
+    feed();
 };
 function start(e) {
     if(e.offsetX||e.layerX)

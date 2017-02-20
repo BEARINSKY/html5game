@@ -103,8 +103,3 @@ function lerpA(aim,cur,spe) {
     }
     return aim+del*spe;
 }
-function getEyeT() {
-    var res=1500+Math.round(Math.random()*4500);
-   // console.log(res);
-    return res;
-}

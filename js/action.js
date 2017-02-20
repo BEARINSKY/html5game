@@ -1,6 +1,7 @@
 /**
  * Created by Administrator on 2017/2/19.
  */
+//大鱼吃果实
 function eat() {
     for (var i=0;i<fruit.num;i++){
         if(fruit.alive[i]){
@@ -10,6 +11,14 @@ function eat() {
                 fruit.dead(i);
             }
         }
+    }
+}
+//大鱼喂食小鱼
+function feed() {
+    var l=calL(bigfish.x,bigfish.y,smallfish.x,smallfish.y);
+    if (l<600){
+        smallfish.eat();
+        console.log("小鱼被喂食了");
     }
 }
 //计算距离的平方
