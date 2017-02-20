@@ -5,17 +5,42 @@ var bigFishObj=function () {
     this.x;//横坐标
     this.y;//纵坐标
     this.angle;//角度
-    this.eye=new Image();//眼睛
+    //this.eye=new Image();//眼睛
+    this.eye=[];//实现眼镜动作的数组
+    this.eyeTime;//眼镜计时器
+    this.eyeCount;//眼镜选择器
+    this.eyeT;//眼镜周期
     this.swim=new Image();//身体
-    this.tail=new Image();//尾巴
+
+    //this.tail=new Image();//尾巴
+    this.tail=[];//实现鱼尾巴动作的数组
+    this.tailTime;//尾巴计时器
+    this.tailCount;//尾巴选择器
 };
 bigFishObj.prototype.init=function () {
     this.x=canWidth*0.5;
     this.y=canHeight*0.5;
     this.angle=0;
-    this.eye.src="./src/bigEye0.png";
+    //EYE
+    this.eyeT=3000;
+    for(var i=0;i<2;i++){
+        this.eye[i]=new Image();
+        this.eye[i].src="./src/bigEye"+i+".png";
+    }
+    this.eyeTime=0;
+    this.eyeCount=0;
+
+    //BODY
     this.swim.src="./src/bigSwim0.png";
-    this.tail.src="./src/bigTail0.png";
+
+    //this.tail.src="./src/babyTail0.png";
+    //TAIL
+    for(var i=0;i<8;i++){
+        this.tail[i]=new Image();
+        this.tail[i].src="./src/bigTail"+i+".png";
+    }
+    this.tailTime=0;
+    this.tailCount=0;
 };
 bigFishObj.prototype.draw=function () {
     //鼠标移入画布再执行
@@ -31,12 +56,31 @@ bigFishObj.prototype.draw=function () {
     var beta=Math.atan2(deltaY,deltaX)+Math.PI;
     this.angle=lerpA(beta,this.angle,0.5);
 
+    //小鱼尾巴动作,根据时间每过50毫秒修改一次图片，一共8张图片
+    this.tailTime+=deltaTime;
+    if (this.tailTime>50){
+        this.tailCount=(this.tailCount+1)%8;
+        this.tailTime%=50;
+    }
+    //大鱼眼镜动作,根据时间每过500毫秒修改一次图片，一共2张图片
+    this.eyeTime+=deltaTime;
+    if (this.eyeTime<100){
+        this.eyeCount=1;
+    }else if(this.eyeTime<this.eyeT){
+        this.eyeCount=0;
+    }else {
+        this.eyeTime%=this.eyeT;
+        this.eyeT=getEyeT();
+    }
     ctx1.save();
     ctx1.translate(this.x,this.y);//将原点定位到此
     ctx1.rotate(this.angle);//设置角度
-    ctx1.drawImage(this.eye,-this.eye.width*0.5,-this.eye.height*0.5);
+
+    var countT=this.tailCount;
+    var countE=this.eyeCount;
+    ctx1.drawImage(this.tail[countT],-this.tail[countT].width*0.5+24,-this.tail[countT].height*0.5);
     ctx1.drawImage(this.swim,-this.swim.width*0.5,-this.swim.height*0.5);
-    ctx1.drawImage(this.tail,-this.tail.width*0.5+30,-this.tail.height*0.5);
+    ctx1.drawImage(this.eye[countE],-this.eye[countE].width*0.5,-this.eye[countE].height*0.5);
     ctx1.restore();
 };
 //设置移动方法，三个参数 目标数值，当前数值，变化率%，返回（当前数值+差值*百分比变化率）
@@ -55,4 +99,9 @@ function lerpA(aim,cur,spe) {
         del=del+2*Math.PI;
     }
     return aim+del*spe;
+}
+function getEyeT() {
+    var res=1500+Math.round(Math.random()*4500);
+    console.log(res);
+    return res;
 }
