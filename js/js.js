@@ -18,6 +18,8 @@ var bgPic=new Image();
 var bigfish;//大鱼
 var smallfish;//小鱼
 
+var data;//得分
+
 var mx;//获取鼠标 坐标X
 var my;//获取鼠标 坐标Y
 document.body.onload=game;
@@ -65,6 +67,9 @@ function init() {
     smallfish=new smallFishObj();
     smallfish.init();
 
+    data=new dataObj();
+    data.init();
+
     mx=canWidth*0.5;
     my=canHeight*0.5;
 };
@@ -90,6 +95,8 @@ function gameloop() {
     smallfish.draw();
     eat();
     feed();
+
+    data.draw();
 };
 function start(e) {
     if(e.offsetX||e.layerX)

@@ -9,16 +9,24 @@ function eat() {
             var l=calL(bigfish.x,bigfish.y,fruit.x[i],fruit.y[i]);
             if (l<600){
                 fruit.dead(i);
+                data.num++;
             }
         }
     }
 }
+var feedFlat=true;//大鱼靠近小鱼，直到，大鱼远离小鱼，期间只触发一次feed()
 //大鱼喂食小鱼
 function feed() {
     var l=calL(bigfish.x,bigfish.y,smallfish.x,smallfish.y);
     if (l<600){
-        smallfish.eat();
-        console.log("小鱼被喂食了");
+        if (feedFlat){
+            smallfish.eat();
+            console.log("小鱼被喂食了");
+            data.reset();
+            feedFlat=false;
+        }
+    }else{
+        feedFlat=true;
     }
 }
 //计算距离的平方
