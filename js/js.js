@@ -22,6 +22,8 @@ var data;//得分
 
 var mx;//获取鼠标 坐标X
 var my;//获取鼠标 坐标Y
+
+var wave;//特效
 document.body.onload=game;
 function game() {
     init();
@@ -72,6 +74,9 @@ function init() {
 
     mx=canWidth*0.5;
     my=canHeight*0.5;
+
+    wave=new waveObj();
+    wave.init();
 };
 function gameloop() {
     // 根据PC性能决定帧数
@@ -97,6 +102,8 @@ function gameloop() {
     feed();
 
     data.draw();
+
+    wave.drawS();
 };
 function start(e) {
     if(e.offsetX||e.layerX)

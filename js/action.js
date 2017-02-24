@@ -9,6 +9,7 @@ function eat() {
             var l=calL(bigfish.x,bigfish.y,fruit.x[i],fruit.y[i]);
             if (l<600){
                 fruit.dead(i);
+                wave.born(bigfish.x,bigfish.y,"big");
                 data.num++;
             }
         }
@@ -21,7 +22,8 @@ function feed() {
     if (l<600){
         if (feedFlat){
             smallfish.eat();
-            console.log("小鱼被喂食了");
+           // console.log("小鱼被喂食了");
+            wave.born(smallfish.x,smallfish.y,"small");
             data.reset();
             feedFlat=false;
         }

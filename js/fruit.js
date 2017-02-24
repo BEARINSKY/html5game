@@ -12,7 +12,7 @@ var fruitObj=function () {
     this.orange=new Image();
     this.blue=new Image();
 };
-fruitObj.prototype.num=30;
+fruitObj.prototype.num=15;
 fruitObj.prototype.init=function () {
     for (var i=0;i<this.num;i++){
         this.alive[i]=false;
@@ -28,6 +28,7 @@ fruitObj.prototype.init=function () {
             this.fruitType[i]="orange";
         }
     }
+    console.log("fruit init");
     this.orange.src="./src/fruit.png";
     this.blue.src="./src/blue.png";
 };
@@ -67,7 +68,7 @@ function fruitMonitor() {
             return
         }
     }
-};
+}
 function sendFruit() {
     for(var i=0;i<fruit.num;i++){
         if(!fruit.alive[i]){
@@ -75,12 +76,12 @@ function sendFruit() {
             return;
         }
     }
-};
+}
 //产生一个果实
 fruitObj.prototype.born=function (i) {
     var aneID=Math.floor(Math.random()*ane.num);
-    this.x[i]=ane.x[aneID];
-    this.y[i]=canHeight-ane.len[aneID];
+    this.x[i]=ane.rootx[aneID];
+    this.y[i]=ane.heady[aneID];
     this.l[i]=0;
     this.alive[i]=true;
 };
