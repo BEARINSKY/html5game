@@ -7,7 +7,7 @@ body{
     margin: 0px;
 }
 #allcanvas{
-
+    /*background: image("./src/background.jpg");*/
     position: relative;
     width: 800px;
     height:600px;

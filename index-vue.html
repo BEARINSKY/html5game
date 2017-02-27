@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/style-vue.css">
+    <title>H5GAME</title>
+</head>
+<body>
+<div class="all_bg" id="game">
+    <div id="allcanvas">
+        <canvas id="canvas1" width="800" height="600">
+        </canvas>
+        <canvas id="canvas2" width="800" height="600">
+        </canvas>
+    </div>
+</div>
+<div >
+    <p >{{ total }}</p>
+    <p >{{ total1 }}</p>
+    <p >{{ txt }}</p>
+    <button v-on:click="add">+1</button><button v-on:click="mm">-1</button>
+</div>
+<script type="text/javascript" src="js-vue/vue.js"></script>
+<script type="text/javascript" src="js-vue/game1.js"></script>
+</body>
+</html>
