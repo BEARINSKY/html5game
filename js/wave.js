@@ -15,29 +15,6 @@ waveObj.prototype.init=function () {
         this.r[i]=5;
     }
 };
-waveObj.prototype.draw=function () {
-    ctx1.save();
-    ctx1.lineWidth=2;
-    ctx1.shadowBlur=10;
-    ctx1.shadowColor="white";
-    for(var i=0;i<this.num;i++){
-        if (this.alive[i]){
-            this.r[i]+=deltaTime*0.02;
-            if (this.r[i]>50){
-                this.alive[i]=false;
-                this.r[i]=0;
-                //continue;
-            }
-            var alpha=1-this.r[i]/50;
-            ctx1.beginPath();
-            ctx1.arc(this.x[i],this.y[i],this.r[i],0,2*Math.PI);
-            ctx1.closePath();
-            ctx1.strokeStyle="rgba(255,255,255,"+alpha+")";
-            ctx1.stroke();
-        }
-    }
-    ctx1.restore();
-};
 waveObj.prototype.drawS=function () {
     ctx1.save();
     ctx1.lineWidth=2;
@@ -70,7 +47,6 @@ waveObj.prototype.drawS=function () {
 };
 waveObj.prototype.born=function (x,y,c) {
     //console.log("born");
-
     for(var i=0;i<this.num;i++){
         if(!this.alive[i]){
             //console.log("draw"+i);
